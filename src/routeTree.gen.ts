@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BriefDashboardRouteImport } from './routes/brief-dashboard'
+import { Route as BriefMixedRouteImport } from './routes/brief-mixed'
+import { Route as BriefWrittenRouteImport } from './routes/brief-written'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BriefDashboardRoute = BriefDashboardRouteImport.update({
+  id: '/brief-dashboard',
+  path: '/brief-dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BriefMixedRoute = BriefMixedRouteImport.update({
+  id: '/brief-mixed',
+  path: '/brief-mixed',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BriefWrittenRoute = BriefWrittenRouteImport.update({
+  id: '/brief-written',
+  path: '/brief-written',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/brief-dashboard': typeof BriefDashboardRoute
+  '/brief-mixed': typeof BriefMixedRoute
+  '/brief-written': typeof BriefWrittenRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/brief-dashboard': typeof BriefDashboardRoute
+  '/brief-mixed': typeof BriefMixedRoute
+  '/brief-written': typeof BriefWrittenRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/brief-dashboard': typeof BriefDashboardRoute
+  '/brief-mixed': typeof BriefMixedRoute
+  '/brief-written': typeof BriefWrittenRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/brief-dashboard' | '/brief-mixed' | '/brief-written'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/brief-dashboard' | '/brief-mixed' | '/brief-written'
+  id: '__root__' | '/' | '/brief-dashboard' | '/brief-mixed' | '/brief-written'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BriefDashboardRoute: typeof BriefDashboardRoute
+  BriefMixedRoute: typeof BriefMixedRoute
+  BriefWrittenRoute: typeof BriefWrittenRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brief-dashboard': {
+      id: '/brief-dashboard'
+      path: '/brief-dashboard'
+      fullPath: '/brief-dashboard'
+      preLoaderRoute: typeof BriefDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brief-mixed': {
+      id: '/brief-mixed'
+      path: '/brief-mixed'
+      fullPath: '/brief-mixed'
+      preLoaderRoute: typeof BriefMixedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brief-written': {
+      id: '/brief-written'
+      path: '/brief-written'
+      fullPath: '/brief-written'
+      preLoaderRoute: typeof BriefWrittenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BriefDashboardRoute: BriefDashboardRoute,
+  BriefMixedRoute: BriefMixedRoute,
+  BriefWrittenRoute: BriefWrittenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
